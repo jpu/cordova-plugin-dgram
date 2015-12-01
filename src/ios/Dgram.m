@@ -1,11 +1,3 @@
-//
-//  Dgram.m
-//  udpDevelop
-//
-//  Created by James McCarthy on 11/27/15.
-//
-//
-
 #import "Dgram.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
