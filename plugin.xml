@@ -23,5 +23,16 @@
         </config-file>
        <source-file src="src/android/Dgram.java" target-dir="src/org/apache/cordova/dgram/" />
     </platform>
+    <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+          <feature name="Dgram">
+              <param name="ios-package" value="Dgram" onload="true" />
+          </feature>
+      </config-file>
+      <header-file src="src/ios/Dgram.h" />
+      <source-file src="src/ios/Dgram.m" />
+      <header-file src="src/ios/GCDAsyncUdpSocket.h" />
+      <source-file src="src/ios/GCDAsyncUdpSocket.m" />
+    </platform>
 
 </plugin>
