@@ -126,8 +126,9 @@ public class Dgram extends CordovaPlugin {
             assert config == null;
             assert socket == null;
             final boolean isMulticast = data.getBoolean(1);
+            final boolean isBroadcast = data.getBoolean(2);
             config = new SocketConfig();
-            config.port = data.getInt(2);
+            config.port = data.getInt(3);
             try {
                 if (isMulticast) {
                     MulticastSocket mcSocket = new MulticastSocket(null);
@@ -139,6 +140,7 @@ public class Dgram extends CordovaPlugin {
                     socket = mcSocket;
                 } else {
                     socket = new DatagramSocket(null);
+                    socket.setBroadcast(isBroadcast);
                 }
                 m_config.put(id, config);
                 m_sockets.put(id, socket);

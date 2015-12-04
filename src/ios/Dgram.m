@@ -7,6 +7,7 @@
 @property (nonatomic,assign) NSInteger socketID;
 @property (nonatomic,assign) NSInteger port;
 @property (nonatomic,assign) BOOL isMulticast;
+@property (nonatomic,assign) BOOL isBroadcast;
 @property (nonatomic,strong) GCDAsyncUdpSocket *socketHandle;
 @property (nonatomic,assign) BOOL isBound;
 
@@ -42,17 +43,21 @@
     SocketConfig *sock = [SocketConfig new];
     sock.socketID = [[command argumentAtIndex:0] intValue];
     sock.isMulticast = [[command argumentAtIndex:1] boolValue];
-    sock.port = [[command argumentAtIndex:2] intValue];
+    sock.isBroadcast = [[command argumentAtIndex:2] boolValue];
+    sock.port = [[command argumentAtIndex:3] intValue];
     sock.isBound = NO;
 
     sock.socketHandle = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-
     CDVPluginResult *result = nil;
+    NSError *error = nil;
     if (sock.socketHandle == nil)
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Cannot create socket"];
     else {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [sockets setObject:sock forKey:[SocketConfig convertIDTokKey:sock.socketID]];
+        if (![sock.socketHandle enableBroadcast:sock.isBroadcast error:&error])
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+        else
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
 
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
