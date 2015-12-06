@@ -211,9 +211,9 @@ public class Dgram extends CordovaPlugin {
                 public void run() {
                     try {
                         byte[] bytes;
-                        if (encoding.equals('utf-8'))
+                        if (encoding.equals("utf-8"))
                             bytes = message.getBytes("UTF-8");
-                        else if (encoding.equals('base64'))
+                        else if (encoding.equals("base64"))
                             bytes = Base64.decode(message, Base64.DEFAULT);
                         else
                             bytes = new byte[] {0};
@@ -223,6 +223,9 @@ public class Dgram extends CordovaPlugin {
                     } catch (IOException ioe) {
                         Log.d(TAG, "send exception:" + ioe.toString(), ioe);
                         callbackContext.error(getErrorFromException(ioe));
+                    } catch (IllegalArgumentException iae) {
+                        Log.d(TAG, "send exception:" + iae.toString(), iae);
+                        callbackContext.error(getErrorFromException(iae));
                     }
                 }
             });
