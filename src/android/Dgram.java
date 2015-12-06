@@ -2,6 +2,7 @@ package org.apache.cordova.dgram;
 
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.Base64;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -202,13 +203,20 @@ public class Dgram extends CordovaPlugin {
             final String message = data.getString(1);
             final String address = data.getString(2);
             final int port = data.getInt(3);
+            final String encoding = data.getString(4);
             final DatagramSocket localSocket = socket;
 
             // threadded send to prevent NetworkOnMainThreadException
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     try {
-                        byte[] bytes = message.getBytes("UTF-8");
+                        byte[] bytes;
+                        if (encoding.equals('utf-8'))
+                            bytes = message.getBytes("UTF-8");
+                        else if (encoding.equals('base64'))
+                            bytes = Base64.decode(message, Base64.DEFAULT);
+                        else
+                            bytes = new byte[] {0};
                         DatagramPacket packet = new DatagramPacket(bytes, bytes.length, InetAddress.getByName(address), port);
                         localSocket.send(packet);
                         callbackContext.success(message);

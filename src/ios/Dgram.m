@@ -143,10 +143,17 @@
     NSString *buffer = [command argumentAtIndex:1];
     NSString *remoteAddress = [command argumentAtIndex:2];
     NSInteger remotePort = [[command argumentAtIndex:3] intValue];
+    NSString *encoding = [command argumentAtIndex:4];
     SocketConfig *config = [sockets valueForKey:[SocketConfig convertIDTokKey:socketID]];
     CDVPluginResult *result = nil;
 
-    NSData *data = [buffer dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = nil;
+    if ([encoding isEqualToString:@"utf8"])
+        data = [buffer dataUsingEncoding:NSUTF8StringEncoding];
+    else if ([encoding isEqualToString:@"base64"])
+        data = [[NSData alloc] initWithBase64EncodedString:buffer options:0];
+    else
+        data = [NSData data];
     if (config == nil || config.socketHandle == nil) {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Socket is not open"];
     }

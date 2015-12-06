@@ -28,14 +28,15 @@ Socket.prototype.close = function () {
     this._socketId = 0;
 };
 
-// sends utf-8
-Socket.prototype.send = function (buffer, destAddress, destPort, callback) {
+// sends utf-8 or base64 based on encoding
+Socket.prototype.send = function (buffer, destAddress, destPort, callback, encoding) {
     callback = callback || function () { };
+    encoding = encoding || 'utf-8';
     exec(callback.bind(null, null), // success
          callback.bind(null), // failure
          'Dgram',
          'send',
-         [ this._socketId, buffer, destAddress, destPort ]);
+         [ this._socketId, buffer, destAddress, destPort, encoding ]);
 };
 
 Socket.prototype.address = function () {
