@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-dgram",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Cordova-Plugin which supports node.js dgram API",
   "cordova": {
     "id": "cordova-plugin-dgram",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andischerer/cordova-plugin-dgram.git"
+    "url": "git+https://github.com/digitalcatnip/cordova-plugin-dgram.git"
   },
   "keywords": [
     "UDP",
@@ -24,7 +24,7 @@
   "author": "Andreas Scherer",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/andischerer/cordova-plugin-dgram/issues"
+    "url": "https://github.com/digitalcatnip/cordova-plugin-dgram/issues"
   },
-  "homepage": "https://github.com/andischerer/cordova-plugin-dgram#readme"
+  "homepage": "https://github.com/digitalcatnip/cordova-plugin-dgram#readme"
 }
