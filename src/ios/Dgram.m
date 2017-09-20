@@ -148,7 +148,7 @@
     CDVPluginResult *result = nil;
 
     NSData *data = nil;
-    if ([encoding isEqualToString:@"utf8"])
+    if ([encoding isEqualToString:@"utf-8"])
         data = [buffer dataUsingEncoding:NSUTF8StringEncoding];
     else if ([encoding isEqualToString:@"base64"])
         data = [[NSData alloc] initWithBase64EncodedString:buffer options:0];
