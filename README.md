@@ -1,10 +1,11 @@
 # cordova-plugin-dgramsocket
 
-fork from [https://github.com/andischerer/cordova-plugin-datagram]
-
 Cordova plugin for sending datagram/UDP. Supports multicast UDP.
 
-##Improvements from fork
-* iOS support
-* Support for broadcasting
-* Support for passing data to plugin as Base64 string
+Forked from [https://github.com/digitalcatnip/cordova-plugin-dgram]
+
+
+
+## Changes from the forked repo
+* Android support only
+* Incoming datagrams: Expect binary payload (video stream) instead of UTF8
