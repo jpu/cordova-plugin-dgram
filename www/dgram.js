@@ -6,6 +6,7 @@ function Socket(type, port) {
     this._broadcastSocket = type === 'broadcast-udp4';
     this._socketId = ++Socket.socketCount;
     this._eventHandlers = { };
+    this._version = "0.1.7-jpu";
     Socket.sockets[this._socketId] = this;
     exec(null, null, 'Dgram', 'create', [ this._socketId, this._multicastSocket, this._broadcastSocket, port ]);
 }
@@ -52,6 +53,11 @@ Socket.prototype.leaveGroup = function (address, callback) {
     callback = callback || function () { };
     if (!this._multicastSocket) throw new Error('Invalid operation');
     exec(callback.bind(null, null), callback.bind(null), 'Dgram', 'leaveGroup', [ this._socketId, address ]);
+};
+
+Socket.prototype.version = function (callback) {
+    callback = callback || function () { };
+    exec(callback.bind(null, null), callback.bind(null), 'Dgram', 'version', [ this._version ]);
 };
 
 function createSocket(type, port) {
