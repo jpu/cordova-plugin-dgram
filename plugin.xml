@@ -3,7 +3,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-dgram"
-    version="0.1.5">
+    version="0.1.7">
     <name>UDP Plugin</name>
     <description>Cordova-Plugin which supports node.js dgram API</description>
     <keywords>UDP, Multicast, Datagram, dgram</keywords>
@@ -23,16 +23,4 @@
         </config-file>
        <source-file src="src/android/Dgram.java" target-dir="src/org/apache/cordova/dgram/" />
     </platform>
-    <platform name="ios">
-      <config-file target="config.xml" parent="/*">
-          <feature name="Dgram">
-              <param name="ios-package" value="Dgram" onload="true" />
-          </feature>
-      </config-file>
-      <header-file src="src/ios/Dgram.h" />
-      <source-file src="src/ios/Dgram.m" />
-      <header-file src="src/ios/GCDAsyncUdpSocket.h" />
-      <source-file src="src/ios/GCDAsyncUdpSocket.m" />
-    </platform>
-
 </plugin>
