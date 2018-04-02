@@ -56,7 +56,7 @@ public class Dgram extends CordovaPlugin {
                 try {
                     packet.setLength(data.length); // reset packet length due to incomplete UDP Packet received
                     this.m_socket.receive(packet);
-                    String msg = new String(data, 0, packet.getLength(), "UTF-8")
+                    String msg = new String(Base64.encodeToString(data), 0, packet.getLength(), "UTF-8")
                             .replace("'", "\'")
                             .replace("\r", "\\r")
                             .replace("\n", "\\n");
