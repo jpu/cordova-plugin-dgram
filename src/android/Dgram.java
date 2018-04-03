@@ -21,6 +21,7 @@ import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.Arrays;
 
 public class Dgram extends CordovaPlugin {
     private static final String TAG = Dgram.class.getSimpleName();
@@ -50,13 +51,14 @@ public class Dgram extends CordovaPlugin {
         }
 
         public void run() {
-            byte[] data = new byte[2048]; // investigate MSG_PEEK and MSG_TRUNC in java
+            byte[] data = new byte[16384]; // investigate MSG_PEEK and MSG_TRUNC in java
             DatagramPacket packet = new DatagramPacket(data, data.length);
             while (true) {
                 try {
                     packet.setLength(data.length); // reset packet length due to incomplete UDP Packet received
                     this.m_socket.receive(packet);
-                    String msg = Base64.encodeToString(data, Base64.DEFAULT)
+                    byte[] slice = Arrays.copyOfRange(data, 0, packet.getLength());
+                    String msg = Base64.encodeToString(slice, Base64.DEFAULT)
                             .replace("'", "\'")
                             .replace("\r", "\\r")
                             .replace("\n", "\\n");
